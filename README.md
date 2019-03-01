@@ -1,14 +1,6 @@
-# deeplabcut-docker
+# OpenPose-Docker
 
-* This Dockerfile provides DeepLabCut + Anaconda environment on Ubuntu 16.04, CUDA 9.0 and CuDNN v7.
-* You can easily and quickly build the environment of DeepLabCut by using this repo.
-* We support GUI tools `label_frames` and `refine_labels` with X Window System.
-
-## Prerequisites
-
-Please finish `Prerequisites` of [Docker4DeepLabCut2.0](https://github.com/AlexEMG/Docker4DeepLabCut2.0#prerequisites) (i.e. install of Docker and nvidia-docker, and complete the docker group setting)
-
-## :mouse: Quick start :mouse:
+## Quick start
 
 ### Build the image 
 
@@ -22,14 +14,11 @@ $ make docker-build
 $ make docker-run
 ```
 
-### Launch JupyterLab
+### Intall OpenPose
 
 Inside the container, 
 
 ```sh
-$ make jupyter
+$ sh scripts/install_openpose.sh
 ```
-
-You can access the JupyterLab from a browser (`http://localhost:9000`).
-
 
