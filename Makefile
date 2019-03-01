@@ -1,7 +1,7 @@
 
-PROJECT_NAME=deeplabcut-work
-JUPYTER_PORT=9000
-TENSORBOARD_PORT=9001
+PROJECT_NAME=openpose-work
+JUPYTER_PORT=9100
+TENSORBOARD_PORT=9101
 IMAGE_NAME=$(PROJECT_NAME)-image
 CONTAINER_NAME=$(PROJECT_NAME)-container
 USER_ID=$(shell id -u)
@@ -24,11 +24,13 @@ docker-build-no-cache:
 docker-run:
 	docker run -it --rm --runtime=nvidia \
 		--user ubuntu \
+		-e NVIDIA_VISIBLE_DEVICES='0' \
 		--name $(CONTAINER_NAME) \
-		-p $(JUPYTER_PORT):$(JUPYTER_PORT) \
-		-p $(TENSORBOARD_PORT):$(TENSORBOARD_PORT) \
+		-p $(JUPYTER_PORT):8888 \
+		-p $(TENSORBOARD_PORT):6006 \
 		-e DISPLAY=$(DISPLAY) \
 		-v /tmp/.X11-unix/:/tmp/.X11-unix \
+		-v /dev/video0:/dev/video0 \
 		-v `pwd`:/work \
 		$(IMAGE_NAME) \
 		/bin/bash
