@@ -22,6 +22,7 @@ docker-build-no-cache:
 		-f docker/Dockerfile --no-cache .
 
 docker-run:
+	xhost +
 	docker run -it --rm --runtime=nvidia \
 		--user ubuntu \
 		-e NVIDIA_VISIBLE_DEVICES='0' \
@@ -29,8 +30,8 @@ docker-run:
 		-p $(JUPYTER_PORT):8888 \
 		-p $(TENSORBOARD_PORT):6006 \
 		-e DISPLAY=$(DISPLAY) \
-		-v /tmp/.X11-unix/:/tmp/.X11-unix \
-		-v /dev/video0:/dev/video0 \
+		-v /tmp/.X11-unix/:/tmp/.X11-unix/:rw \
+		--device /dev/video0:/dev/video0:mwr \
 		-v `pwd`:/work \
 		$(IMAGE_NAME) \
 		/bin/bash
