@@ -1,24 +1,17 @@
 # OpenPose-Docker
 
-## Quick start
+## How to use
 
-### Build the image 
-
-```sh
-$ make docker-build
-```
-
-### Start the container
+### Build the image
 
 ```sh
-$ make docker-run
+$ docker-compose build
 ```
 
-### Intall OpenPose
-
-Inside the container, 
+### Start OpenPose
 
 ```sh
-$ sh scripts/install_openpose.sh
+$ docker-compose run openpose-work bash
+# Insider the container,
+$ sh scripts/launch_openpose.sh
 ```
-
