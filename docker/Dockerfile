@@ -5,9 +5,10 @@ RUN apt-get -y update --fix-missing && apt-get -y upgrade
 RUN apt-get install -y sudo wget bzip2 git vim cmake xserver-xorg-dev libgl1-mesa-dev unzip && \
     apt-get install -y x11-apps
 
-RUN apt-get install lsof apt-utils lsb-core -y
-RUN apt-get install libatlas-base-dev -y
-RUN apt-get install libopencv-dev python-opencv python-pip cmake -y
+RUN apt-get install -y lsof apt-utils lsb-core
+RUN apt-get install -y libatlas-base-dev
+RUN apt-get install -y libopencv-dev python-opencv python-pip cmake
+RUN apt-get install -y libcanberra-gtk-module libcanberra-gtk3-module
 
 # settings
 ARG user_name=ubuntu

@@ -1,7 +1,7 @@
 
 PROJECT_NAME=openpose-work
-JUPYTER_PORT=9100
-TENSORBOARD_PORT=9101
+JUPYTER_PORT=9900
+TENSORBOARD_PORT=9901
 IMAGE_NAME=$(PROJECT_NAME)-image
 CONTAINER_NAME=$(PROJECT_NAME)-container
 USER_ID=$(shell id -u)
@@ -24,6 +24,7 @@ docker-build-no-cache:
 docker-run:
 	xhost +
 	docker run -it --rm --runtime=nvidia \
+		--privileged \
 		--user ubuntu \
 		-e NVIDIA_VISIBLE_DEVICES='0' \
 		--name $(CONTAINER_NAME) \
@@ -31,7 +32,7 @@ docker-run:
 		-p $(TENSORBOARD_PORT):6006 \
 		-e DISPLAY=$(DISPLAY) \
 		-v /tmp/.X11-unix/:/tmp/.X11-unix/:rw \
-		--device /dev/video0:/dev/video0:mwr \
+		-v /dev/video0:/dev/video0:rw \
 		-v `pwd`:/work \
 		$(IMAGE_NAME) \
 		/bin/bash
