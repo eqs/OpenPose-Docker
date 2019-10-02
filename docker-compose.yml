@@ -1,0 +1,24 @@
+version: '2.3'
+
+services:
+    openpose-work:
+        runtime: nvidia
+        build:
+            context: .
+            dockerfile: docker/Dockerfile
+            args:
+                user_id: "${UID}"
+                group_id: "${GID}"
+        user: "ubuntu"
+        privileged: true
+        command: bash
+        ports:
+            - "${JUPYTER_PORT}:8888"
+            - "${TFBOARD_PORT}:6006"
+        volumes:
+            - .:/work
+            - /tmp/.X11-unix/:/tmp/.X11-unix/:rw
+            - /dev/video0:/dev/video0:rw
+        environment:
+            NVIDIA_VISIBLE_DEVICES: '0'
+            DISPLAY: "${DISPLAY}"
